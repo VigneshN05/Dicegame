@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dice Roller Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+            background-color: #f0f0f0;
+        }
+        .dice {
+            font-size: 100px;
+            margin: 20px;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .score {
+            font-size: 24px;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Dice Roller Game</h1>
+    <p>Roll the dice and try to get the highest score!</p>
+    
+    <div class="dice" id="dice1">⚀</div>
+    <div class="dice" id="dice2">⚀</div>
+    
+    <div class="score">Your score: <span id="score">0</span></div>
+    <div class="score">High score: <span id="highScore">0</span></div>
+    
+    <button onclick="rollDice()">Roll Dice</button>
+    <button onclick="resetGame()">Reset Game</button>
+    
+    <script>
+        let totalScore = 0;
+        let highScore = 0;
+        
+        function rollDice() {
+            // Generate random numbers between 1 and 6
+            const dice1 = Math.floor(Math.random() * 6) + 1;
+            const dice2 = Math.floor(Math.random() * 6) + 1;
+            
+            // Update dice faces
+            document.getElementById('dice1').textContent = getDiceFace(dice1);
+            document.getElementById('dice2').textContent = getDiceFace(dice2);
+            
+            // Calculate score (sum of both dice)
+            const rollScore = dice1 + dice2;
+            totalScore += rollScore;
+            
+            // Update scores
+            document.getElementById('score').textContent = totalScore;
+            
+            // Check for new high score
+            if (totalScore > highScore) {
+                highScore = totalScore;
+                document.getElementById('highScore').textContent = highScore;
+            }
+        }
+        
+        function getDiceFace(number) {
+            // Return Unicode dice faces
+            switch(number) {
+                case 1: return '⚀';
+                case 2: return '⚁';
+                case 3: return '⚂';
+                case 4: return '⚃';
+                case 5: return '⚄';
+                case 6: return '⚅';
+                default: return '?';
+            }
+        }
+        
+        function resetGame() {
+            totalScore = 0;
+            document.getElementById('score').textContent = '0';
+            document.getElementById('dice1').textContent = '⚀';
+            document.getElementById('dice2').textContent = '⚀';
+        }
+    </script>
+</body>
+</html>
